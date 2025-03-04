@@ -1,8 +1,5 @@
 package org.nc.knowledge;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class PartyType {
     private final String name;
     private final PartyType supertype;

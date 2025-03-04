@@ -3,16 +3,18 @@ class PartyType:
         self.name = name
         self.supertype = supertype
     
+    
+    # (Derivazione) Restituisce l'insieme di tutti i tipi di party a cui appartiene il tipo corrente
     def get_all_types(self):
-        types = {self}
+        # Essenzialmente risale la gerarchia dei tipi di partito fino a raggiungere il tipo radice
+        types = [self]
         current = self.supertype
         while current:
-            types.add(current)
+            types.append(current)
             current = current.supertype
         return types
 
-    def is_compatible_with(self, other: "PartyType"):
-        return bool(self.get_all_types() & other.get_all_types())  # Intersezione non vuota
 
     def __repr__(self):
         return f"PartyType({self.name})"
+
