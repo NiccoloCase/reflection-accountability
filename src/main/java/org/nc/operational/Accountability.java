@@ -3,6 +3,8 @@ package org.nc.operational;
 import org.nc.knowledge.AccountabilityType;
 import org.nc.knowledge.PartyType;
 
+import java.util.Set;
+
 public class Accountability {
     private final AccountabilityType type;
     private final Party commissioner;
@@ -35,19 +37,44 @@ public class Accountability {
     }
 
     // Controlla che i tipi di party siano validi per il tipo di accountability
-    public void validateConstraints() {
-        PartyType commType = commissioner.getType();
-        PartyType respType = responsible.getType();
 
-        if (!type.getCommissioners().contains(commType)) {
-            throw new IllegalStateException(
-                    "Commissioner type '" + commType.getName() +
-                            "' is not valid for AccountabilityType '" + type.getName() + "'.");
+    // 1) Ogni commissioner deve appartenere a un tipo compatibile con il tipo del Party.
+    //        x.commissioner.allTypes ∩ x.type.commissioners ≠ ∅
+
+    // 2) Ogni responsible deve appartenere a un tipo compatibile con il tipo del Party.
+    //        x. responsible.allTypes ∩ x.type.responsibles ≠ ∅
+
+    // allTypes è una derivazione di party: self type and all self type's supertypes
+
+    public void validateConstraints() {
+            Set<PartyType> commissionerTypes = commissioner.getAllTypes();
+            Set<PartyType> responsibleTypes = responsible.getAllTypes();
+
+            boolean validCommissioner = false;
+            for (PartyType commType : commissionerTypes) {
+                if (type.getCommissioners().contains(commType)) {
+                    validCommissioner = true;
+                    break;
+                }
+            }
+
+            boolean validResponsible = false;
+            for (PartyType respType : responsibleTypes) {
+                if (type.getResponsibles().contains(respType)) {
+                    validResponsible = true;
+                    break;
+                }
+            }
+
+            if (!validCommissioner) {
+                throw new IllegalStateException(
+                        "Commissioner type '" + commissioner.getType().getName() +
+                                "' is not valid for AccountabilityType '" + type.getName() + "'.");
+            }
+            if (!validResponsible) {
+                throw new IllegalStateException(
+                        "Responsible type '" + responsible.getType().getName() +
+                                "' is not valid for AccountabilityType '" + type.getName() + "'.");
+            }
         }
-        if (!type.getResponsibles().contains(respType)) {
-            throw new IllegalStateException(
-                    "Responsible type '" + respType.getName() +
-                            "' is not valid for AccountabilityType '" + type.getName() + "'.");
-        }
-    }
 }
