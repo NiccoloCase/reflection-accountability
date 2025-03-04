@@ -1,7 +1,10 @@
 import unittest
 from datetime import date
-
-from operational import Accountability, AccountabilityType, PartyType, Party, TimePeriod
+from src.knowledge.PartyType import PartyType
+from src.knowledge.AccountabilityType import AccountabilityType
+from src.operational.Accountability import Accountability
+from src.operational.Party import Party
+from src.operational.TimePeriod import TimePeriod
 
 class TestAccountability(unittest.TestCase):
 
@@ -21,11 +24,11 @@ class TestAccountability(unittest.TestCase):
             end_date=date(2025, 6, 30)
         )
 
-        # Should not raise an exception
         try:
             Accountability(enrollment_type, unifi, niccolo, academic_year)
         except Exception as e:
             self.fail(f"Unexpected exception raised: {e}")
+
 
     def test_fail_if_commissioner_is_invalid(self):
         student_type = PartyType("Student")
@@ -49,6 +52,7 @@ class TestAccountability(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "Commissioner type 'Company' is not valid for AccountabilityType 'Enrollment'.")
 
+
     def test_allow_full_professor_to_teach(self):
         person_type = PartyType("Person")
         professor_type = PartyType("Professor", person_type)
@@ -67,11 +71,11 @@ class TestAccountability(unittest.TestCase):
             end_date=date.today()
         )
 
-        # Should not raise an exception
         try:
             Accountability(teaching_type, unifi, enrico_vicario, teaching_period)
         except Exception as e:
             self.fail(f"Unexpected exception raised: {e}")
+
 
     def test_allow_department_director_role(self):
         person_type = PartyType("Person")
@@ -90,11 +94,12 @@ class TestAccountability(unittest.TestCase):
             end_date=date(2020, 11, 1)
         )
 
-        # Should not raise an exception
+ 
         try:
             Accountability(director_role, unifi, enrico_vicario, director_period)
         except Exception as e:
             self.fail(f"Unexpected exception raised: {e}")
+
 
     def test_fail_if_full_professor_is_not_department_director(self):
         person_type = PartyType("Person")
@@ -120,6 +125,7 @@ class TestAccountability(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "Responsible type 'FullProfessor' is not valid for AccountabilityType 'Department Leadership'.")
 
+
     def test_fail_if_department_director_cannot_teach(self):
         person_type = PartyType("Person")
         professor_type = PartyType("Professor", person_type)
@@ -142,6 +148,3 @@ class TestAccountability(unittest.TestCase):
             Accountability(teaching_type, unifi, enrico_vicario, teaching_period)
 
         self.assertEqual(str(context.exception), "Responsible type 'DepartmentDirector' is not valid for AccountabilityType 'Teaching'.")
-
-if __name__ == '__main__':
-    unittest.main()

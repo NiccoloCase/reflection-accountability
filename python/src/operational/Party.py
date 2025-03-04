@@ -8,5 +8,8 @@ class Party:
     def get_all_types(self):
         return self.party_type.get_all_types()
 
+    def get_type(self):
+        return self.party_type
+
     def __repr__(self):
         return f"Party({self.name}, {self.party_type.name})"
