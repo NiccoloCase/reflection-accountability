@@ -1,4 +1,4 @@
-# Accountability Package
+# Accountability Pattern
 
 This project demonstrates the **Accountability** pattern as described in _Analysis Patterns_ by Martin Fowler, implemented in both Java and Python.
 
