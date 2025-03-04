@@ -1,4 +1,4 @@
-from operational import Accountability
+from . import Accountability
 
 
 class Action:

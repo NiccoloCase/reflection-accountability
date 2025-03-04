@@ -1,10 +1,10 @@
 from datetime import date
-from operational.Accountability import Accountability
-from operational.TimePeriod import TimePeriod  # Corrected import
-from operational.Party import Party
-from knowledge.AccountabilityType import AccountabilityType
-from knowledge.PartyType import PartyType
-from operational.Action import Action
+from src.operational.Accountability import Accountability
+from src.operational.TimePeriod import TimePeriod  
+from src.operational.Party import Party
+from src.knowledge.AccountabilityType import AccountabilityType
+from src.knowledge.PartyType import PartyType
+from src.operational.Action import Action
 
 def main():
     

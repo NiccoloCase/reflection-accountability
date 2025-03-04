@@ -1,4 +1,4 @@
-from knowledge.PartyType import PartyType 
+from ..knowledge.PartyType import PartyType 
 
 class Party:
     def __init__(self, name: str, party_type: PartyType):

@@ -1,6 +1,6 @@
-from operational import TimePeriod
-from operational.Party import Party
-from knowledge.AccountabilityType import AccountabilityType
+from ..knowledge.AccountabilityType import AccountabilityType
+from .Party import Party
+from .TimePeriod import TimePeriod
 
 class Accountability:
     def __init__(self, acc_type: AccountabilityType, commissioner: Party, responsible: Party, valid_for: TimePeriod):

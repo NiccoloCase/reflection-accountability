@@ -1,5 +1,5 @@
 from typing import Set
-from knowledge.PartyType import PartyType
+from .PartyType import PartyType
 
 class AccountabilityType:
     def __init__(self, name: str):
